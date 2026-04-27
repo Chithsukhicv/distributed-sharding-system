@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  college_db:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    restart: always
+
+  backend1:
+    build: .
+    command: python backend_server.py
+    environment:
+      - PORT=5001
+      - MONGO_HOST=college_db
+    depends_on:
+      - college_db
+
+  backend2:
+    build: .
+    command: python backend_server.py
+    environment:
+      - PORT=5002
+      - MONGO_HOST=college_db
+    depends_on:
+      - college_db
+
+  backend3:
+    build: .
+    command: python backend_server.py
+    environment:
+      - PORT=5003
+      - MONGO_HOST=college_db
+    depends_on:
+      - college_db
+
+  central:
+    build: .
+    command: python central_server.py
+    ports:
+      - "5000:5000"
+    environment:
+      - BACKEND_1=http://backend1:5001
+      - BACKEND_2=http://backend2:5002
+      - BACKEND_3=http://backend3:5003
+    depends_on:
+      - backend1
+      - backend2
+      - backend3
