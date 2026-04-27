@@ -30,7 +30,7 @@ pure_storage_sharding_project/
 │
 ├── sharded_version/
 │   ├── backend_server.py
-│   ├── central_server.py
+│   ├── central_server.py 
 │   ├── client.py
 │   ├── data_loader.py
 │   ├── Dockerfile
