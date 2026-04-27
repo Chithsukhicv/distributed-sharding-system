@@ -17,6 +17,9 @@ The focus of the project is to compare a traditional single database setup with 
 
 ## Project Structure
 
+## Project Structure
+
+```text
 pure_storage_sharding_project/
 │
 ├── single_db_instance/
@@ -37,7 +40,9 @@ pure_storage_sharding_project/
 │   ├── docker-compose.yml
 │   └── requirements.txt
 │
+├── .gitignore
 └── README.md
+```
 
 
 ## Implemented Components
