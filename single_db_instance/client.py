@@ -6,7 +6,7 @@ import concurrent.futures
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import os
 
-BASE_URL = "http://127.0.0.1:5000"
+BASE_URL = "http://localhost:5000"
 
 # Use a session to reuse TCP connections, improving performance
 session = requests.Session()
