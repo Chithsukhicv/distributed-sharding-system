@@ -6,7 +6,7 @@ import concurrent.futures
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import os
 
-BASE_URL = "http://127.0.0.1:5000"  # Points to central server now
+BASE_URL = "http://localhost:5000"  # Points to central server now
 
 # Use a session to reuse TCP connections
 session = requests.Session()
