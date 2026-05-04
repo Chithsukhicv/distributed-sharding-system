@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  shard1_db:
+    image: mongo:latest
+    ports:
+      - "27018:27017" # Exposed to 27018 on your host machine for data_loader
+    restart: always
+
+  shard2_db:
+    image: mongo:latest
+    ports:
+      - "27019:27017" # Exposed to 27019 on your host machine for data_loader
+    restart: always
+
+  shard3_db:
+    image: mongo:latest
+    ports:
+      - "27020:27017" # Exposed to 27020 on your host machine for data_loader
+    restart: always
+
+  backend1:
+    build: .
+    command: python backend_server.py
+    environment:
+      - PORT=5001
+      - DB_NAME=shard_1_db
+      - MONGO_HOST=shard1_db
+    depends_on:
+      - shard1_db
+
+  backend2:
+    build: .
+    command: python backend_server.py
+    environment:
+      - PORT=5002
+      - DB_NAME=shard_2_db
+      - MONGO_HOST=shard2_db
+    depends_on:
+      - shard2_db
+
+  backend3:
+    build: .
+    command: python backend_server.py
+    environment:
+      - PORT=5003
+      - DB_NAME=shard_3_db
+      - MONGO_HOST=shard3_db
+    depends_on:
+      - shard3_db
+
+  central:
+    build: .
+    command: python central_server.py
+    ports:
+      - "5000:5000"
+    environment:
+      - BACKEND_1=http://backend1:5001
+      - BACKEND_2=http://backend2:5002
+      - BACKEND_3=http://backend3:5003
+    depends_on:
+      - backend1
+      - backend2
+      - backend3

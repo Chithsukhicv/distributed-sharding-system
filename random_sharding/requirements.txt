@@ -1,0 +1,6 @@
+flask
+pymongo
+faker
+requests
+aiohttp
+asgiref
