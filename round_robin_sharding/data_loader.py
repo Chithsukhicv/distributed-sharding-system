@@ -21,8 +21,9 @@ shards = {
     2: MongoClient(MONGO_URIS[2])["shard_3_db"]["students"]
 }
 
-for shard in shards.values():
-    shard.create_index([("student_id", ASCENDING)], unique=True)
+# Index intentionally disabled for benchmarking
+# for shard in shards.values():
+#     shard.create_index([("student_id", ASCENDING)], unique=True)
 
 departments = ["CSE", "ECE", "ME", "Civil", "Chemical", "IT", "EEE"]
 
@@ -42,7 +43,11 @@ def generate_student(student_id):
         "cgpa": round(random.uniform(5.0, 10.0), 1)
     }
 
-def load_data(total=1_000_000, batch_size=10_000):
+def load_data(total=10_000_000, batch_size=10_000):
+    # Drop old data
+    print("Dropping old collections...")
+    for shard in shards.values():
+        shard.drop()
     print(f"Starting ROUND ROBIN sharded insertion of {total:,} records across {NUM_SHARDS} shards...")
     start_time = time.time()
 
@@ -73,4 +78,4 @@ def load_data(total=1_000_000, batch_size=10_000):
         print(f"  shard_{shard_num + 1}_db: {count:,} students")
 
 if __name__ == '__main__':
-    load_data()
+    load_data(total=10_000_000)

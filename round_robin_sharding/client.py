@@ -25,12 +25,23 @@ def get_student_timed(student_id):
     end = time.time()
     return (end - start) * 1000
 
-def performance_test(num_queries=1000, max_workers=50):
-    print(f"\nRunning CONCURRENT performance test with {num_queries} queries and {max_workers} workers...")
-    print(f"Sending requests through central server → round robin sharded backends")
+def performance_test(num_queries=500, max_workers=10):
+    # Get actual record count
+    try:
+        count_resp = session.get(f"{BASE_URL}/count")
+        count_data = count_resp.json()
+        actual_count = count_data.get("total_count", "unknown")
+    except:
+        actual_count = "unknown"
 
+    print(f"\nRunning CONCURRENT performance test...")
+    print(f"Total queries      : {num_queries}")
+    print(f"Concurrent workers : {max_workers}")
+    print(f"Total records in DB: {actual_count:,}" if isinstance(actual_count, int) else f"Total records in DB: {actual_count}")
+
+    max_id = actual_count if isinstance(actual_count, int) else 10_000_000
     query_times = []
-    random_ids = [random.randint(1, 1_000_000) for _ in range(num_queries)]
+    random_ids = [random.randint(1, max_id) for _ in range(num_queries)]
 
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
         futures = {executor.submit(get_student_timed, sid): sid for sid in random_ids}
@@ -83,7 +94,7 @@ if __name__ == '__main__':
     count_response = session.get(f"{BASE_URL}/count")
     print(f"Count result: {count_response.json()}")
 
-    sharded_times = performance_test(1000, max_workers=50)
+    sharded_times = performance_test(500, max_workers=10)
     sharded_avg = sum(sharded_times) / len(sharded_times)
 
     # Read the dynamic single DB average instead of hardcoding

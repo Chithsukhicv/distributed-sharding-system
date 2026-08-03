@@ -13,7 +13,8 @@ client = MongoClient(f"mongodb://{MONGO_HOST}:27017/")
 db = client["college_db"]
 collection = db["students"]
 
-collection.create_index([("student_id", ASCENDING)], unique=True)
+# Index intentionally disabled to simulate heavy analytical queries (Full Collection Scan)
+# collection.create_index([("student_id", ASCENDING)], unique=True)
 
 @app.route('/put', methods=['POST'])
 def put_student():

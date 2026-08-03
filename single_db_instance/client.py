@@ -25,13 +25,21 @@ def get_student(student_id):
     response = session.get(f"{BASE_URL}/get/{student_id}")
     return response.json()
 
-def performance_test(num_queries=1000, max_workers=50):
+def performance_test(num_queries=500, max_workers=50):
+    # Get actual record count from the database
+    try:
+        count_resp = session.get(f"{BASE_URL}/count")
+        actual_count = count_resp.json().get("count", "unknown")
+    except:
+        actual_count = "unknown"
+
     print(f"\nRunning CONCURRENT performance test...")
     print(f"Total queries      : {num_queries}")
     print(f"Concurrent workers : {max_workers}")
-    print(f"Total records in DB: 1,000,001")
+    print(f"Total records in DB: {actual_count:,}" if isinstance(actual_count, int) else f"Total records in DB: {actual_count}")
 
-    random_ids = [random.randint(1, 1_000_000) for _ in range(num_queries)]
+    max_id = actual_count if isinstance(actual_count, int) else 10_000_000
+    random_ids = [random.randint(1, max_id) for _ in range(num_queries)]
     query_times = []
 
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
@@ -83,4 +91,4 @@ if __name__ == '__main__':
     result = get_student(500000)
     print(f"GET result: {result}")
 
-    performance_test(1000, max_workers=50)
+    performance_test(500, max_workers=10)

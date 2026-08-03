@@ -24,7 +24,9 @@ def generate_batch(start_id, batch_size):
         })
     return students
 
-def load_data(total=1_000_000, batch_size=10_000):
+def load_data(total=10_000_000, batch_size=10_000):
+    print("Dropping old collection and indexes...")
+    collection.drop()
     print(f"Starting insertion of {total:,} records...")
     start_time = time.time()
     
@@ -43,4 +45,4 @@ def load_data(total=1_000_000, batch_size=10_000):
     print(f"Time taken: {total_time:.1f} seconds")
 
 if __name__ == '__main__':
-    load_data()
+    load_data(total=10_000_000)

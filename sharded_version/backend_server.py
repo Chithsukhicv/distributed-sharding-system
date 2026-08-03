@@ -13,7 +13,8 @@ client = MongoClient(f"mongodb://{MONGO_HOST}:27017/")
 db = client[DB_NAME]
 collection = db["students"]
 
-collection.create_index([("student_id", ASCENDING)], unique=True)
+# Index intentionally disabled to simulate heavy analytical queries (Full Collection Scan)
+# collection.create_index([("student_id", ASCENDING)], unique=True)
 
 print(f"Backend server starting on port {PORT}")
 print(f"Connected to database: {DB_NAME}")
