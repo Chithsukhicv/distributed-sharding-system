@@ -1,0 +1,108 @@
+PERFORMANCE RESULTS - SINGLE DB
+========================================
+Total queries     : 5000
+Concurrent workers: 100
+Average time      : 677.9584 ms
+Fastest query     : 55.4466 ms
+Slowest query     : 934.8667 ms
+Median time       : 665.6566 ms
+========================================
+
+PERFORMANCE RESULTS - SHARDED DB
+========================================
+Total queries    : 5000
+Average time     : 663.3743 ms
+Fastest query    : 39.6857 ms
+Slowest query    : 957.2060 ms
+Median time      : 640.4667 ms
+========================================
+
+========================================
+COMPARISON
+========================================
+Single DB average  : 677.9584 ms
+Sharded average    : 663.3743 ms
+Improvement        : 2.2%
+
+
+-------------------------------------------------------------------------------------------
+PERFORMANCE RESULTS - SHARDED DB
+========================================
+Total queries    : 5000
+Average time     : 682.7731 ms
+Fastest query    : 34.7099 ms
+Slowest query    : 1182.4346 ms
+Median time      : 686.1562 ms
+========================================
+
+========================================
+COMPARISON
+========================================
+Single DB average  : 677.9584 ms
+Sharded average    : 682.7731 ms
+Improvement        : -0.7%
+========================================
+
+
+-------------------------------------------------------------------------------------------------
+PERFORMANCE RESULTS - SINGLE DB
+========================================
+Total queries     : 5000
+Concurrent workers: 100
+Average time      : 716.5292 ms
+Fastest query     : 58.3663 ms
+Slowest query     : 1122.9322 ms
+Median time       : 698.4105 ms
+========================================
+
+========================================
+PERFORMANCE RESULTS - SINGLE DB
+========================================
+Total queries     : 10000
+Concurrent workers: 100
+Average time      : 660.2233 ms
+Fastest query     : 51.5926 ms
+Slowest query     : 1048.0075 ms
+Median time       : 638.4685 ms
+========================================
+
+NEWWWWWWWWWWWWW
+--------------------------------------------------------------------------------------------------
+PERFORMANCE RESULTS - SINGLE DB
+========================================
+Total queries     : 5000
+Concurrent workers: 50
+Average time      : 322.4424 ms
+Fastest query     : 14.9627 ms
+Slowest query     : 656.6832 ms
+Median time       : 317.6907 ms
+========================================
+
+---------------------------------------------------------------------------------------------------
+
+PERFORMANCE RESULTS - SINGLE DB
+========================================
+Total queries     : 500
+Concurrent workers: 10
+Average time      : 27436.8326 ms
+Fastest query     : 206.3954 ms
+Slowest query     : 131405.4654 ms
+Median time       : 24837.8278 ms
+========================================
+
+PERFORMANCE RESULTS - SHARDED DB
+========================================
+Total queries    : 500
+Average time     : 2992.4445 ms
+Fastest query    : 32.7837 ms
+Slowest query    : 14019.9423 ms
+Median time      : 2147.7787 ms
+========================================
+
+========================================
+COMPARISON
+========================================
+Single DB average  : 27436.8326 ms
+Sharded average    : 2992.4445 ms
+Improvement        : 89.1%
+========================================
